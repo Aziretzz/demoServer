@@ -1,15 +1,17 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
+from drf_spectacular import openapi
 from rest_framework import status
 from rest_framework.generics import get_object_or_404
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated,AllowAny
+
 from .serializers import RestaurantCheck
-from drf_spectacular.utils import extend_schema
+from drf_spectacular.utils import extend_schema,OpenApiParameter
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
-from .models import Restaurant, CategoryMenu, DishMenu
-from .serializers import PostCheckCategory, PutCheckCategory, GetCheckCategory, PostDish, GetDish, PutDish
+from .models import Restaurant, CategoryMenu, DishMenu, gallery
+from .serializers import PostCheckCategory, PutCheckCategory, GetCheckCategory, PostDish, GetDish, PutDish, GetGallery
 
 
 @csrf_exempt
@@ -195,3 +197,42 @@ def put_dish(request, category_id, dish_id):
         return Response({'error': 'Категория не найдена'}, status=status.HTTP_404_NOT_FOUND)
     except DishMenu.DoesNotExist:
         return Response({'error': 'Блюдо не найдено'}, status=status.HTTP_404_NOT_FOUND)
+
+
+
+@extend_schema(
+    description="Получение списка изображений галереи ресторана по ID",
+    parameters=[
+        OpenApiParameter(
+            name='restaurant_id',
+            type=int,
+            location=OpenApiParameter.PATH,
+            description='ID ресторана',
+            required=True
+        ),
+    ],
+    responses={
+        200: GetGallery(many=True),
+        404: {
+            'description': 'Галерея не найдена',
+            'content': {
+                'application/json': {
+                    'example': {
+                        'detail': 'Gallery not found.'
+                    }
+                }
+            }
+        },
+    }
+)
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def get_gallery(request, restaurant_id):
+    try:
+        gallery_images = gallery.objects.filter(restaurant_id=restaurant_id)
+        if not gallery_images.exists():
+            return Response({"detail": "Gallery not found."}, status=status.HTTP_404_NOT_FOUND)
+        serializer = GetGallery(gallery_images, many=True)
+        return Response(serializer.data)
+    except gallery.DoesNotExist:
+        return Response({"detail": "Gallery not found."}, status=status.HTTP_404_NOT_FOUND)

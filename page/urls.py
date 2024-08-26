@@ -1,7 +1,7 @@
 from . import views
 from django.urls import path
 from .views import restaurant_check, create_category, delete_category, put_category, get_category
-from .views import post_dish, delete_dish, get_one_dish, get_all_dishes, put_dish
+from .views import post_dish, delete_dish, get_one_dish, get_all_dishes, put_dish, get_gallery
 
 urlpatterns = [
     path('', views.page),
@@ -15,4 +15,5 @@ urlpatterns = [
     path('dishes/<int:dish_id>/', get_one_dish, name='get_one_dish'),
     path('dishes/', get_all_dishes, name='get_all_dishes'),
     path('dishes/<int:category_id>/<int:dish_id>/', put_dish, name='update_dish'),
+    path('gallery/<int:restaurant_id>/', get_gallery, name='get_gallery'),
 ]

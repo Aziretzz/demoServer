@@ -2,7 +2,7 @@ from rest_framework import serializers
 from .models import WorkingHours, Restaurant
 from rg.models import Customer
 from rg.serializers import registrationCheck
-from .models import CategoryMenu, DishMenu
+from .models import CategoryMenu, DishMenu, gallery
 
 
 class RestaurantCheck(serializers.ModelSerializer):
@@ -84,4 +84,12 @@ class PutDish(serializers.ModelSerializer):
     class Meta:
         model = DishMenu
         fields = ['name', 'description', 'ingredients', 'price', 'image']
+
+
+class GetGallery(serializers.ModelSerializer):
+    class Meta:
+        model = gallery
+        fields = ['restaurant', 'image_url']
+
+
 
