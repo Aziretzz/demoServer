@@ -1,0 +1,1033 @@
+openapi: 3.0.3
+info:
+  title: City Restaurants API
+  version: 1.0.0
+  description: Good project
+paths:
+  /page/category:
+    get:
+      operationId: page_category_list
+      description: Получение списка категорий
+      tags:
+      - page
+      security:
+      - jwtAuth: []
+      - basicAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GetCheckCategory'
+          description: ''
+  /page/category/:
+    post:
+      operationId: page_category_create
+      description: Создание новой категории
+      tags:
+      - page
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostCheckCategory'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PostCheckCategory'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PostCheckCategory'
+        required: true
+      security:
+      - jwtAuth: []
+      - basicAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PostCheckCategory'
+          description: ''
+  /page/category/{category_id}:
+    put:
+      operationId: page_category_update
+      description: Редактирование категории
+      parameters:
+      - in: path
+        name: category_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - page
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PutCheckCategory'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PutCheckCategory'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PutCheckCategory'
+        required: true
+      security:
+      - jwtAuth: []
+      - basicAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PutCheckCategory'
+          description: ''
+  /page/category/{category_id}/delete/:
+    delete:
+      operationId: page_category_delete_destroy
+      parameters:
+      - in: path
+        name: category_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - page
+      security:
+      - jwtAuth: []
+      - basicAuth: []
+      - cookieAuth: []
+      responses:
+        '204':
+          description: No response body
+  /page/dishes/:
+    get:
+      operationId: page_dishes_list
+      description: Получение всех блюд ресторана
+      tags:
+      - page
+      security:
+      - jwtAuth: []
+      - basicAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GetDish'
+          description: ''
+  /page/dishes/{category_id}:
+    post:
+      operationId: page_dishes_create
+      description: Создание нового блюда
+      parameters:
+      - in: path
+        name: category_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - page
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostDish'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PostDish'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PostDish'
+        required: true
+      security:
+      - jwtAuth: []
+      - basicAuth: []
+      - cookieAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PostDish'
+          description: ''
+  /page/dishes/{category_id}/{dish_id}/:
+    put:
+      operationId: page_dishes_update
+      description: Обновление блюда
+      parameters:
+      - in: path
+        name: category_id
+        schema:
+          type: integer
+        required: true
+      - in: path
+        name: dish_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - page
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PutDish'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PutDish'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PutDish'
+        required: true
+      security:
+      - jwtAuth: []
+      - basicAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PutDish'
+          description: ''
+  /page/dishes/{dish_id}/:
+    get:
+      operationId: page_dishes_retrieve
+      description: Получение информации о блюде
+      parameters:
+      - in: path
+        name: dish_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - page
+      security:
+      - jwtAuth: []
+      - basicAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetDish'
+          description: ''
+  /page/dishes/{dish_id}/delete/:
+    delete:
+      operationId: page_dishes_delete_destroy
+      description: Удаление блюда
+      parameters:
+      - in: path
+        name: dish_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - page
+      security:
+      - jwtAuth: []
+      - basicAuth: []
+      - cookieAuth: []
+      responses:
+        '204':
+          description: No response body
+  /page/restaurant/{id}/:
+    put:
+      operationId: page_restaurant_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - page
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RestaurantCheck'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/RestaurantCheck'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/RestaurantCheck'
+        required: true
+      security:
+      - jwtAuth: []
+      - basicAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestaurantCheck'
+          description: ''
+  /rg/all_users/:
+    get:
+      operationId: rg_all_users_list
+      tags:
+      - rg
+      security:
+      - jwtAuth: []
+      - basicAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+          description: ''
+  /rg/api/token/:
+    post:
+      operationId: rg_api_token_create
+      description: |-
+        Takes a set of user credentials and returns an access and refresh JSON web
+        token pair to prove the authentication of those credentials.
+      tags:
+      - rg
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenObtainPair'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenObtainPair'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenObtainPair'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenObtainPair'
+          description: ''
+  /rg/api/token/refresh/:
+    post:
+      operationId: rg_api_token_refresh_create
+      description: |-
+        Takes a refresh type JSON web token and returns an access type JSON web
+        token if the refresh token is valid.
+      tags:
+      - rg
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenRefresh'
+          description: ''
+  /rg/login_guest/:
+    post:
+      operationId: rg_login_guest_create
+      tags:
+      - rg
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/g_loginCheck'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/g_loginCheck'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/g_loginCheck'
+        required: true
+      security:
+      - jwtAuth: []
+      - basicAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/g_loginCheck'
+          description: ''
+  /rg/login_restaurant/:
+    post:
+      operationId: rg_login_restaurant_create
+      tags:
+      - rg
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/loginCheck'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/loginCheck'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/loginCheck'
+        required: true
+      security:
+      - jwtAuth: []
+      - basicAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/loginCheck'
+          description: ''
+  /rg/register_guest/:
+    post:
+      operationId: rg_register_guest_create
+      tags:
+      - rg
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/g_registrationCheck'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/g_registrationCheck'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/g_registrationCheck'
+        required: true
+      security:
+      - jwtAuth: []
+      - basicAuth: []
+      - cookieAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/g_registrationCheck'
+          description: ''
+  /rg/register_restaurant/:
+    post:
+      operationId: rg_register_restaurant_create
+      tags:
+      - rg
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/registrationCheck'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/registrationCheck'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/registrationCheck'
+        required: true
+      security:
+      - jwtAuth: []
+      - basicAuth: []
+      - cookieAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/registrationCheck'
+          description: ''
+components:
+  schemas:
+    GetCheckCategory:
+      type: object
+      properties:
+        name:
+          type: string
+          title: Название Категории
+          maxLength: 100
+      required:
+      - name
+    GetDish:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        category:
+          type: integer
+        name:
+          type: string
+          title: Название Блюда
+          maxLength: 200
+        description:
+          type: string
+          nullable: true
+          title: Описание
+        ingredients:
+          type: string
+          title: Состав
+        price:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,4}(?:\.\d{0,2})?$
+          title: Цена
+        image:
+          type: string
+          format: uri
+          title: Фото
+      required:
+      - category
+      - id
+      - image
+      - ingredients
+      - name
+      - price
+    PostCheckCategory:
+      type: object
+      properties:
+        name:
+          type: string
+          title: Название Категории
+          maxLength: 100
+      required:
+      - name
+    PostDish:
+      type: object
+      properties:
+        name:
+          type: string
+          title: Название Блюда
+          maxLength: 200
+        description:
+          type: string
+          nullable: true
+          title: Описание
+        ingredients:
+          type: string
+          title: Состав
+        price:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,4}(?:\.\d{0,2})?$
+          title: Цена
+        image:
+          type: string
+          format: uri
+          title: Фото
+      required:
+      - image
+      - ingredients
+      - name
+      - price
+    PutCheckCategory:
+      type: object
+      properties:
+        name:
+          type: string
+          title: Название Категории
+          maxLength: 100
+      required:
+      - name
+    PutDish:
+      type: object
+      properties:
+        name:
+          type: string
+          title: Название Блюда
+          maxLength: 200
+        description:
+          type: string
+          nullable: true
+          title: Описание
+        ingredients:
+          type: string
+          title: Состав
+        price:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,4}(?:\.\d{0,2})?$
+          title: Цена
+        image:
+          type: string
+          format: uri
+          title: Фото
+      required:
+      - image
+      - ingredients
+      - name
+      - price
+    ReservationEndTimeEnum:
+      enum:
+      - 00:00
+      - 00:30
+      - 01:00
+      - 01:30
+      - 02:00
+      - 02:30
+      - 03:00
+      - 03:30
+      - 04:00
+      - 04:30
+      - 05:00
+      - 05:30
+      - 06:00
+      - 06:30
+      - 07:00
+      - 07:30
+      - 08:00
+      - 08:30
+      - 09:00
+      - 09:30
+      - '10:00'
+      - '10:30'
+      - '11:00'
+      - '11:30'
+      - '12:00'
+      - '12:30'
+      - '13:00'
+      - '13:30'
+      - '14:00'
+      - '14:30'
+      - '15:00'
+      - '15:30'
+      - '16:00'
+      - '16:30'
+      - '17:00'
+      - '17:30'
+      - '18:00'
+      - '18:30'
+      - '19:00'
+      - '19:30'
+      - '20:00'
+      - '20:30'
+      - '21:00'
+      - '21:30'
+      - '22:00'
+      - '22:30'
+      - '23:00'
+      - '23:30'
+      type: string
+      description: |-
+        * `00:00` - 00:00
+        * `00:30` - 00:30
+        * `01:00` - 01:00
+        * `01:30` - 01:30
+        * `02:00` - 02:00
+        * `02:30` - 02:30
+        * `03:00` - 03:00
+        * `03:30` - 03:30
+        * `04:00` - 04:00
+        * `04:30` - 04:30
+        * `05:00` - 05:00
+        * `05:30` - 05:30
+        * `06:00` - 06:00
+        * `06:30` - 06:30
+        * `07:00` - 07:00
+        * `07:30` - 07:30
+        * `08:00` - 08:00
+        * `08:30` - 08:30
+        * `09:00` - 09:00
+        * `09:30` - 09:30
+        * `10:00` - 10:00
+        * `10:30` - 10:30
+        * `11:00` - 11:00
+        * `11:30` - 11:30
+        * `12:00` - 12:00
+        * `12:30` - 12:30
+        * `13:00` - 13:00
+        * `13:30` - 13:30
+        * `14:00` - 14:00
+        * `14:30` - 14:30
+        * `15:00` - 15:00
+        * `15:30` - 15:30
+        * `16:00` - 16:00
+        * `16:30` - 16:30
+        * `17:00` - 17:00
+        * `17:30` - 17:30
+        * `18:00` - 18:00
+        * `18:30` - 18:30
+        * `19:00` - 19:00
+        * `19:30` - 19:30
+        * `20:00` - 20:00
+        * `20:30` - 20:30
+        * `21:00` - 21:00
+        * `21:30` - 21:30
+        * `22:00` - 22:00
+        * `22:30` - 22:30
+        * `23:00` - 23:00
+        * `23:30` - 23:30
+    ReservationStartTimeEnum:
+      enum:
+      - 00:00
+      - 00:30
+      - 01:00
+      - 01:30
+      - 02:00
+      - 02:30
+      - 03:00
+      - 03:30
+      - 04:00
+      - 04:30
+      - 05:00
+      - 05:30
+      - 06:00
+      - 06:30
+      - 07:00
+      - 07:30
+      - 08:00
+      - 08:30
+      - 09:00
+      - 09:30
+      - '10:00'
+      - '10:30'
+      - '11:00'
+      - '11:30'
+      - '12:00'
+      - '12:30'
+      - '13:00'
+      - '13:30'
+      - '14:00'
+      - '14:30'
+      - '15:00'
+      - '15:30'
+      - '16:00'
+      - '16:30'
+      - '17:00'
+      - '17:30'
+      - '18:00'
+      - '18:30'
+      - '19:00'
+      - '19:30'
+      - '20:00'
+      - '20:30'
+      - '21:00'
+      - '21:30'
+      - '22:00'
+      - '22:30'
+      - '23:00'
+      - '23:30'
+      type: string
+      description: |-
+        * `00:00` - 00:00
+        * `00:30` - 00:30
+        * `01:00` - 01:00
+        * `01:30` - 01:30
+        * `02:00` - 02:00
+        * `02:30` - 02:30
+        * `03:00` - 03:00
+        * `03:30` - 03:30
+        * `04:00` - 04:00
+        * `04:30` - 04:30
+        * `05:00` - 05:00
+        * `05:30` - 05:30
+        * `06:00` - 06:00
+        * `06:30` - 06:30
+        * `07:00` - 07:00
+        * `07:30` - 07:30
+        * `08:00` - 08:00
+        * `08:30` - 08:30
+        * `09:00` - 09:00
+        * `09:30` - 09:30
+        * `10:00` - 10:00
+        * `10:30` - 10:30
+        * `11:00` - 11:00
+        * `11:30` - 11:30
+        * `12:00` - 12:00
+        * `12:30` - 12:30
+        * `13:00` - 13:00
+        * `13:30` - 13:30
+        * `14:00` - 14:00
+        * `14:30` - 14:30
+        * `15:00` - 15:00
+        * `15:30` - 15:30
+        * `16:00` - 16:00
+        * `16:30` - 16:30
+        * `17:00` - 17:00
+        * `17:30` - 17:30
+        * `18:00` - 18:00
+        * `18:30` - 18:30
+        * `19:00` - 19:00
+        * `19:30` - 19:30
+        * `20:00` - 20:00
+        * `20:30` - 20:30
+        * `21:00` - 21:00
+        * `21:30` - 21:30
+        * `22:00` - 22:00
+        * `22:30` - 22:30
+        * `23:00` - 23:00
+        * `23:30` - 23:30
+    RestaurantCheck:
+      type: object
+      properties:
+        description:
+          type: string
+          title: Описание
+        address:
+          type: string
+          title: Адрес Ресторана
+          maxLength: 200
+        phone:
+          type: string
+          title: Номер Ресторана
+          maxLength: 12
+        reservation_start_time:
+          $ref: '#/components/schemas/ReservationStartTimeEnum'
+        reservation_end_time:
+          $ref: '#/components/schemas/ReservationEndTimeEnum'
+      required:
+      - address
+      - description
+      - phone
+      - reservation_end_time
+      - reservation_start_time
+    TokenObtainPair:
+      type: object
+      properties:
+        email:
+          type: string
+          writeOnly: true
+        password:
+          type: string
+          writeOnly: true
+        access:
+          type: string
+          readOnly: true
+        refresh:
+          type: string
+          readOnly: true
+      required:
+      - access
+      - email
+      - password
+      - refresh
+    TokenRefresh:
+      type: object
+      properties:
+        access:
+          type: string
+          readOnly: true
+        refresh:
+          type: string
+          writeOnly: true
+      required:
+      - access
+      - refresh
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        password:
+          type: string
+          title: Пароль
+          maxLength: 128
+        last_login:
+          type: string
+          format: date-time
+          readOnly: true
+          title: Время входа в аккаунт
+        time_create:
+          type: string
+          format: date-time
+          readOnly: true
+          title: Время создания аккаунта
+        time_update:
+          type: string
+          format: date-time
+          readOnly: true
+          title: Время последнего изменения
+        title:
+          type: string
+          title: Название Ресторана
+          maxLength: 200
+        email:
+          type: string
+          format: email
+          title: Почта пользователя
+          maxLength: 60
+        restaurant_email:
+          type: string
+          format: email
+          title: Почта ресторана
+          maxLength: 60
+        name:
+          type: string
+          title: ФИО
+          maxLength: 100
+        position:
+          type: string
+          title: Должность
+          maxLength: 30
+        phone:
+          type: string
+          title: Номер телефона
+          maxLength: 12
+        is_admin:
+          type: boolean
+          title: Админ
+        is_superuser:
+          type: boolean
+          title: Всемогущий
+        restaurant:
+          type: integer
+        groups:
+          type: array
+          items:
+            type: integer
+            title: Группы
+          title: Группы
+          description: Группы, к которым принадлежит данный пользователь. Пользователь
+            получит все права, указанные в каждой из его/её групп.
+        user_permissions:
+          type: array
+          items:
+            type: integer
+            title: Права пользователя
+          title: Права пользователя
+          description: Индивидуальные права данного пользователя.
+      required:
+      - email
+      - id
+      - last_login
+      - name
+      - password
+      - phone
+      - position
+      - restaurant
+      - restaurant_email
+      - time_create
+      - time_update
+      - title
+    g_loginCheck:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+      required:
+      - email
+      - password
+    g_registrationCheck:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+          title: Адрес электронной почты
+          maxLength: 255
+        name:
+          type: string
+          title: ФИО
+          maxLength: 255
+        phone_number:
+          type: string
+          title: Номер телефона
+          maxLength: 12
+        password:
+          type: string
+          title: Пароль
+          maxLength: 128
+      required:
+      - email
+      - name
+      - password
+      - phone_number
+    loginCheck:
+      type: object
+      properties:
+        title:
+          type: string
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+      required:
+      - email
+      - password
+      - title
+    registrationCheck:
+      type: object
+      properties:
+        title:
+          type: string
+          title: Название Ресторана
+          maxLength: 200
+        email:
+          type: string
+          format: email
+          title: Почта пользователя
+          maxLength: 60
+        restaurant_email:
+          type: string
+          format: email
+          title: Почта ресторана
+          maxLength: 60
+        name:
+          type: string
+          title: ФИО
+          maxLength: 100
+        position:
+          type: string
+          title: Должность
+          maxLength: 30
+        phone:
+          type: string
+          title: Номер телефона
+          maxLength: 12
+        password:
+          type: string
+          title: Пароль
+          maxLength: 128
+      required:
+      - email
+      - name
+      - password
+      - phone
+      - position
+      - restaurant_email
+      - title
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: sessionid
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
